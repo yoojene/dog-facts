@@ -1,0 +1,7 @@
+{
+  "name": "dogs-facts",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

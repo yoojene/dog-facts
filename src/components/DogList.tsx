@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { IonList, IonListHeader, IonLabel, IonItem, IonImg } from '@ionic/react';
+import { IonList, IonListHeader, IonLabel, IonItem, IonImg, IonButton } from '@ionic/react';
 // import { useGetDogPhotos } from '../hooks/useDogData';
+import { uuid } from 'uuidv4';
 
 export default function DogList() {
 
@@ -41,22 +42,27 @@ export default function DogList() {
 
 
   return (
+    <React.Fragment>
     <IonList>
       {/* <IonListHeader>
         <IonLabel className="ion-text-center">Dog Factz</IonLabel>
     </IonListHeader> */}
   
     {dogs.map((dog) => (
-      <React.Fragment>
-        <IonLabel className="ion-text-wrap">
+      // console.log(dog.url.substr(dog.url.length - 3))
+      <React.Fragment key={uuid()}>
+        <IonLabel key={uuid()} className="ion-text-wrap">
           <div className="ion-padding ion-text-center">{dog.fact}</div>
         </IonLabel>
-        <IonItem>
-   
-        <IonImg 
-          key={dog.fileSizeByte} 
-          src={dog.url}> 
-          </IonImg>
+        <IonItem key={uuid()}>
+          {(dog.url.substr(dog.url.length - 3) === 'mp4') ? <video controls autoPlay key={dog.fileSizeByte}><source src={dog.url}></source></video> : <IonImg
+            key={dog.fileSizeByte}
+            src={dog.url}>
+          </IonImg>}
+          {/* <IonImg
+            key={dog.fileSizeByte} 
+            src={dog.url}> 
+          </IonImg> */}
       </IonItem>
       </React.Fragment>
     ))}
@@ -65,5 +71,7 @@ export default function DogList() {
     {/* {hasError} */}
       
     </IonList>
+      <IonButton size="large" onClick={fetchDogs}> Get Me a Dog </IonButton>
+    </React.Fragment>
   )
 }

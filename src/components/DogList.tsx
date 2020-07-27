@@ -22,7 +22,7 @@ export default function DogList() {
 
     Promise.all([
       fetch('https://random.dog/woof.json'),
-      fetch('http://localhost:8010/proxy')
+      fetch('http://localhost:8010/proxy')  // Proxying to http://dog-api.kinduff.com//api/facts\?number\=1 
     ]).then(
       res => (Promise.all([res[0].json(), res[1].json()])).then(r => {
         console.log(r)
@@ -55,7 +55,7 @@ export default function DogList() {
           <div className="ion-padding ion-text-center">{dog.fact}</div>
         </IonLabel>
         <IonItem key={uuid()}>
-          {(dog.url.substr(dog.url.length - 3) === 'mp4') ? <video controls autoPlay key={dog.fileSizeByte}><source src={dog.url}></source></video> : <IonImg
+          {(dog.url.substr(dog.url.length - 3) === 'mp4' || dog.url.substr(dog.url.length - 4) === 'webm') ? <video controls autoPlay key={dog.fileSizeByte}><source src={dog.url}></source></video> : <IonImg
             key={dog.fileSizeByte}
             src={dog.url}>
           </IonImg>}
